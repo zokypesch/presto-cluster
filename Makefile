@@ -33,7 +33,7 @@ corretto:
 	docker buildx build --build-arg VERSION=${PRESTO_SNAPSHOT_VERSION}-corretto --platform linux/arm64 -t registry-intl.ap-southeast-5.aliyuncs.com/prakerja/presto-coordinator:${PRESTO_SNAPSHOT_VERSION}-corretto presto-coordinator --push
 	docker buildx build --build-arg VERSION=${PRESTO_SNAPSHOT_VERSION}-corretto --platform linux/arm64 -t registry-intl.ap-southeast-5.aliyuncs.com/prakerja/presto-worker:${PRESTO_SNAPSHOT_VERSION}-corretto presto-worker --push
 
-push: build push_arm64v8
+push:
 	docker push registry-intl.ap-southeast-5.aliyuncs.com/prakerja/presto-base:$(PRESTO_VERSION)
 	docker push registry-intl.ap-southeast-5.aliyuncs.com/prakerja/presto-coordinator:$(PRESTO_VERSION)
 	docker push registry-intl.ap-southeast-5.aliyuncs.com/prakerja/presto-worker:$(PRESTO_VERSION)
