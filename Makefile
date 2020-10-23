@@ -4,39 +4,39 @@ PRESTO_SNAPSHOT_VERSION := 343-SNAPSHOT
 .PHONY: build local push run down release
 
 build:
-	docker build --build-arg VERSION=${PRESTO_VERSION} -t zokypesch/presto-base:${PRESTO_VERSION} presto-base
-	docker build --build-arg VERSION=${PRESTO_VERSION} -t zokypesch/presto-coordinator:${PRESTO_VERSION} presto-coordinator
-	docker build --build-arg VERSION=${PRESTO_VERSION} -t zokypesch/presto-worker:${PRESTO_VERSION} presto-worker
+	docker build --build-arg VERSION=${PRESTO_VERSION} -t registry-intl.ap-southeast-5.aliyuncs.com/prakerja/presto-base:${PRESTO_VERSION} presto-base
+	docker build --build-arg VERSION=${PRESTO_VERSION} -t registry-intl.ap-southeast-5.aliyuncs.com/prakerja/presto-coordinator:${PRESTO_VERSION} presto-coordinator
+	docker build --build-arg VERSION=${PRESTO_VERSION} -t registry-intl.ap-southeast-5.aliyuncs.com/prakerja/presto-worker:${PRESTO_VERSION} presto-worker
 
 snapshot:
-	docker build --build-arg VERSION=${PRESTO_SNAPSHOT_VERSION} -f presto-base/Dockerfile-dev -t zokypesch/presto-base:${PRESTO_SNAPSHOT_VERSION} presto-base
-	docker build --build-arg VERSION=${PRESTO_SNAPSHOT_VERSION} -t zokypesch/presto-coordinator:${PRESTO_SNAPSHOT_VERSION} presto-coordinator
-	docker build --build-arg VERSION=${PRESTO_SNAPSHOT_VERSION} -t zokypesch/presto-worker:${PRESTO_SNAPSHOT_VERSION} presto-worker
-	docker push zokypesch/presto-base:$(PRESTO_SNAPSHOT_VERSION)
-	docker push zokypesch/presto-coordinator:$(PRESTO_SNAPSHOT_VERSION)
-	docker push zokypesch/presto-worker:$(PRESTO_SNAPSHOT_VERSION)
+	docker build --build-arg VERSION=${PRESTO_SNAPSHOT_VERSION} -f presto-base/Dockerfile-dev -t registry-intl.ap-southeast-5.aliyuncs.com/prakerja/presto-base:${PRESTO_SNAPSHOT_VERSION} presto-base
+	docker build --build-arg VERSION=${PRESTO_SNAPSHOT_VERSION} -t registry-intl.ap-southeast-5.aliyuncs.com/prakerja/presto-coordinator:${PRESTO_SNAPSHOT_VERSION} presto-coordinator
+	docker build --build-arg VERSION=${PRESTO_SNAPSHOT_VERSION} -t registry-intl.ap-southeast-5.aliyuncs.com/prakerja/presto-worker:${PRESTO_SNAPSHOT_VERSION} presto-worker
+	docker push registry-intl.ap-southeast-5.aliyuncs.com/prakerja/presto-base:$(PRESTO_SNAPSHOT_VERSION)
+	docker push registry-intl.ap-southeast-5.aliyuncs.com/prakerja/presto-coordinator:$(PRESTO_SNAPSHOT_VERSION)
+	docker push registry-intl.ap-southeast-5.aliyuncs.com/prakerja/presto-worker:$(PRESTO_SNAPSHOT_VERSION)
 
 # Experimental
 arm64v8:
-	docker buildx build --build-arg VERSION=${PRESTO_VERSION} --platform linux/arm64/v8 -f presto-base/Dockerfile-aarch64 -t zokypesch/presto-base:${PRESTO_VERSION}-arm64v8 presto-base
-	docker buildx build --build-arg VERSION=${PRESTO_VERSION}-arm64v8 --platform linux/arm64/v8 -t zokypesch/presto-coordinator:${PRESTO_VERSION}-arm64v8 presto-coordinator
-	docker buildx build --build-arg VERSION=${PRESTO_VERSION}-arm64v8 --platform linux/arm64/v8 -t zokypesch/presto-worker:${PRESTO_VERSION}-aarch64 presto-worker
+	docker buildx build --build-arg VERSION=${PRESTO_VERSION} --platform linux/arm64/v8 -f presto-base/Dockerfile-aarch64 -t registry-intl.ap-southeast-5.aliyuncs.com/prakerja/presto-base:${PRESTO_VERSION}-arm64v8 presto-base
+	docker buildx build --build-arg VERSION=${PRESTO_VERSION}-arm64v8 --platform linux/arm64/v8 -t registry-intl.ap-southeast-5.aliyuncs.com/prakerja/presto-coordinator:${PRESTO_VERSION}-arm64v8 presto-coordinator
+	docker buildx build --build-arg VERSION=${PRESTO_VERSION}-arm64v8 --platform linux/arm64/v8 -t registry-intl.ap-southeast-5.aliyuncs.com/prakerja/presto-worker:${PRESTO_VERSION}-aarch64 presto-worker
 
 push_arm64v8:
-	docker buildx build --build-arg VERSION=${PRESTO_VERSION} --platform linux/arm64/v8 -f presto-base/Dockerfile-aarch64 -t zokypesch/presto-base:${PRESTO_VERSION}-arm64v8 presto-base --push
-	docker buildx build --build-arg VERSION=${PRESTO_VERSION}-arm64v8 --platform linux/arm64/v8 -t zokypesch/presto-coordinator:${PRESTO_VERSION}-arm64v8 presto-coordinator --push
-	docker buildx build --build-arg VERSION=${PRESTO_VERSION}-arm64v8 --platform linux/arm64/v8 -t zokypesch/presto-worker:${PRESTO_VERSION}-arm64v8 presto-worker --push
+	docker buildx build --build-arg VERSION=${PRESTO_VERSION} --platform linux/arm64/v8 -f presto-base/Dockerfile-aarch64 -t registry-intl.ap-southeast-5.aliyuncs.com/prakerja/presto-base:${PRESTO_VERSION}-arm64v8 presto-base --push
+	docker buildx build --build-arg VERSION=${PRESTO_VERSION}-arm64v8 --platform linux/arm64/v8 -t registry-intl.ap-southeast-5.aliyuncs.com/prakerja/presto-coordinator:${PRESTO_VERSION}-arm64v8 presto-coordinator --push
+	docker buildx build --build-arg VERSION=${PRESTO_VERSION}-arm64v8 --platform linux/arm64/v8 -t registry-intl.ap-southeast-5.aliyuncs.com/prakerja/presto-worker:${PRESTO_VERSION}-arm64v8 presto-worker --push
 
 # Experimental
 corretto:
-	docker buildx build --build-arg VERSION=${PRESTO_SNAPSHOT_VERSION} --platform linux/arm64 -f presto-base/Dockerfile-corrett -t zokypesch/presto-base:${PRESTO_SNAPSHOT_VERSION}-corretto presto-base --push
-	docker buildx build --build-arg VERSION=${PRESTO_SNAPSHOT_VERSION}-corretto --platform linux/arm64 -t zokypesch/presto-coordinator:${PRESTO_SNAPSHOT_VERSION}-corretto presto-coordinator --push
-	docker buildx build --build-arg VERSION=${PRESTO_SNAPSHOT_VERSION}-corretto --platform linux/arm64 -t zokypesch/presto-worker:${PRESTO_SNAPSHOT_VERSION}-corretto presto-worker --push
+	docker buildx build --build-arg VERSION=${PRESTO_SNAPSHOT_VERSION} --platform linux/arm64 -f presto-base/Dockerfile-corrett -t registry-intl.ap-southeast-5.aliyuncs.com/prakerja/presto-base:${PRESTO_SNAPSHOT_VERSION}-corretto presto-base --push
+	docker buildx build --build-arg VERSION=${PRESTO_SNAPSHOT_VERSION}-corretto --platform linux/arm64 -t registry-intl.ap-southeast-5.aliyuncs.com/prakerja/presto-coordinator:${PRESTO_SNAPSHOT_VERSION}-corretto presto-coordinator --push
+	docker buildx build --build-arg VERSION=${PRESTO_SNAPSHOT_VERSION}-corretto --platform linux/arm64 -t registry-intl.ap-southeast-5.aliyuncs.com/prakerja/presto-worker:${PRESTO_SNAPSHOT_VERSION}-corretto presto-worker --push
 
 push: build push_arm64v8
-	docker push zokypesch/presto-base:$(PRESTO_VERSION)
-	docker push zokypesch/presto-coordinator:$(PRESTO_VERSION)
-	docker push zokypesch/presto-worker:$(PRESTO_VERSION)
+	docker push registry-intl.ap-southeast-5.aliyuncs.com/prakerja/presto-base:$(PRESTO_VERSION)
+	docker push registry-intl.ap-southeast-5.aliyuncs.com/prakerja/presto-coordinator:$(PRESTO_VERSION)
+	docker push registry-intl.ap-southeast-5.aliyuncs.com/prakerja/presto-worker:$(PRESTO_VERSION)
 	sh ./update-readme.sh
 
 run:
