@@ -1,6 +1,6 @@
 ARG VERSION
 
-FROM zokypesch/presto-base:${VERSION}
+FROM registry-intl.ap-southeast-5.aliyuncs.com/prakerja/presto-base:${VERSION}
 LABEL maintainer="lewuathe"
 
 COPY etc /usr/local/presto/etc
