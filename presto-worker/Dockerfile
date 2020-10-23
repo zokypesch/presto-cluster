@@ -1,6 +1,6 @@
 ARG VERSION
 
-FROM lewuathe/presto-base:${VERSION}
+FROM zokypesch/presto-base:${VERSION}
 LABEL maintainer="lewuathe"
 
 COPY etc /usr/local/presto/etc
